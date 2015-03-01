@@ -9,7 +9,7 @@ git submodule update
 open index.html
 ```
 
-index.htmlをGoogle Chromeなどのブラウザで開いて下さい。
+index.htmlをGoogle Chromeなどのブラウザで開いて下さい。  
 自動的に処理が行われ、完了するとjsonファイルのダウンロードが始まります。
 
 ## データ構造
