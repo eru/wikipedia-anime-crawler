@@ -76,7 +76,7 @@ var wiki = {
         // 最低限文字列として扱えるようにしてから、日付とか話数とかうまいこと取得するです
         var dateText = $(this).find('td:eq(0)').text().replace('\n', '').replace(/\s+/g, ' ').trim(),
           titleText = $(this).find('td:eq(1)').text().replace('\n', '').replace(/\s+/g, ' ').trim(),
-          wikiUrl = $(this).find('td:eq(1) a[class!="new"]').attr('href'),
+          wikipediaUrl = $(this).find('td:eq(1) a[class!="new"]').attr('href'),
           productionsText = $(this).find('td:eq(2)').text().replace('\n', '').replace(/\s+/g, ' ').trim(),
           chapterText = $(this).find('td:eq(4)').text().replace('\n', '').replace(/\s+/g, ' ').trim(),
           date = that.dateParse(dateText, year),
@@ -86,7 +86,7 @@ var wiki = {
             ended: date.ended,
             chapters: chapterText.match(/全(\d+)話/) ? RegExp.$1 : null,
             productions: productionsText.split(/、\s?/),
-            wikiUrl: that.baseURI + wikiUrl
+            wikipediaUrl: that.baseURI + wikipediaUrl
           };
 
         objList.push(obj);
@@ -127,8 +127,8 @@ var wiki = {
     }
 
     return {
-      started: dateObj.started ? utils.dateStr(dateObj.started) : null,
-      ended: dateObj.ended ? utils.dateStr(dateObj.ended) : null
+      started: dateObj.started ? dateObj.started.toJSON() : null,
+      ended: dateObj.ended ? dateObj.ended.toJSON() : null
     };
   }
 };
