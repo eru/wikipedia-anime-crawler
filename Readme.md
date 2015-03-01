@@ -2,7 +2,14 @@
 
 ## 使い方
 
-index.htmlをGoogle Chromeなどのブラウザで開いて下さい。  
+```
+git submodule init
+git submodule update
+# Macなら
+open index.html
+```
+
+index.htmlをGoogle Chromeなどのブラウザで開いて下さい。
 自動的に処理が行われ、完了するとjsonファイルのダウンロードが始まります。
 
 ## データ構造
