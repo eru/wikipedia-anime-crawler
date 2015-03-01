@@ -1,0 +1,3 @@
+[submodule "jquery.fn"]
+	path = jquery.fn
+	url = https://github.com/padolsey/jquery.fn.git
