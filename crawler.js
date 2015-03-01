@@ -82,11 +82,11 @@ var wiki = {
           date = that.dateParse(dateText, year),
           obj = {
             title: titleText,
-            start: date.start,
-            end: date.end,
-            chapter: chapterText.match(/全(\d+)話/) ? RegExp.$1 : null,
+            started: date.started,
+            ended: date.ended,
+            chapters: chapterText.match(/全(\d+)話/) ? RegExp.$1 : null,
             productions: productionsText.split(/、\s?/),
-            wikiUrl: that.baseURI + wikiUrl,
+            wikiUrl: that.baseURI + wikiUrl
           };
 
         objList.push(obj);
@@ -99,38 +99,38 @@ var wiki = {
   },
   // クソみたいな日付のテキストをうまいことやって日付の文字列x2の入ったオブジェクトを返すです
   dateParse: function(dateText, year) {
-    var dateObj = {start: null, end: null};
+    var dateObj = {started: null, ended: null};
 
     // クソ書式の判定
     if (dateText.match(/^(\d+)年(\d+)月(\d+)日\s-\s(\d+)年(\d+)月(\d+)日$/)) {
       // yyyy年mm月dd日 - yyyy年mm月dd日
-      dateObj.start = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3);
-      dateObj.end = new Date(RegExp.$4, RegExp.$5 - 1, RegExp.$6);
+      dateObj.started = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3);
+      dateObj.ended = new Date(RegExp.$4, RegExp.$5 - 1, RegExp.$6);
     } else if (dateText.match(/^(\d+)年(\d+)月(\d+)日\s-\s(\d+)月(\d+)日$/)) {
       // yyyy年mm月dd日 - mm月dd日
-      dateObj.start = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3);
-      dateObj.end = new Date(RegExp.$1, RegExp.$4 - 1, RegExp.$5);
+      dateObj.started = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3);
+      dateObj.ended = new Date(RegExp.$1, RegExp.$4 - 1, RegExp.$5);
     } else if (dateText.match(/^(\d+)月(\d+)日\s-\s(\d+)年(\d+)月(\d+)日$/)) {
       // mm月dd日 - yyyy年mm月dd日
-      dateObj.start = new Date(year, RegExp.$1 - 1, RegExp.$2);
-      dateObj.end = new Date(RegExp.$3, RegExp.$4 - 1, RegExp.$5);
+      dateObj.started = new Date(year, RegExp.$1 - 1, RegExp.$2);
+      dateObj.ended = new Date(RegExp.$3, RegExp.$4 - 1, RegExp.$5);
     } else if (dateText.match(/^(\d+)月(\d+)日\s-\s(\d+)月(\d+)日$/)) {
       // mm月dd日 - mm月dd日
-      dateObj.start = new Date(year, RegExp.$1 - 1, RegExp.$2);
-      dateObj.end = new Date(year, RegExp.$3 - 1, RegExp.$4);
+      dateObj.started = new Date(year, RegExp.$1 - 1, RegExp.$2);
+      dateObj.ended = new Date(year, RegExp.$3 - 1, RegExp.$4);
     } else if (dateText.match(/^(\d+)年(\d+)月(\d+)日/)) {
       // yyyy年mm月dd日 (たぶん、1話完結系とか。)
-      dateObj.start = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3);
+      dateObj.started = new Date(RegExp.$1, RegExp.$2 - 1, RegExp.$3);
     } else if (dateText.match(/^(\d+)月(\d+)日/)) {
       // mm月dd日 (たぶん、1話完結系とか。)
-      dateObj.start = new Date(year, RegExp.$1 - 1, RegExp.$2);
+      dateObj.started = new Date(year, RegExp.$1 - 1, RegExp.$2);
     }
 
     return {
-      start: dateObj.start ? utils.dateStr(dateObj.start) : null,
-      end: dateObj.end ? utils.dateStr(dateObj.end) : null
+      started: dateObj.started ? utils.dateStr(dateObj.started) : null,
+      ended: dateObj.ended ? utils.dateStr(dateObj.ended) : null
     };
-  },
+  }
 };
 
 $(function() {
@@ -141,7 +141,7 @@ $(function() {
     var ajax = $.ajax({
       url: v.url,
       obj: v,
-      type: 'GET',
+      type: 'GET'
     }).then(function(res) {
       Array.prototype.push.apply(json, wiki.parse(res.results[0], this.obj));
     });
@@ -157,7 +157,7 @@ $(function() {
     // ダウンロードさせるです
     a.href = URL.createObjectURL(blob);
     a.target = '_blank';
-    a.download = 'anime_list.json';
+    a.download = 'animelist.json';
     a.click();
   });
 });
