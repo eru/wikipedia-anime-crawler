@@ -6,10 +6,6 @@ var utils = {
       ar.push(i);
     }
     return ar;
-  },
-  // Dateオブジェクトを渡すと、yyyy-mm-dd形式の文字列にして返すです
-  dateStr: function(d) {
-    return d.getFullYear() + '-' + ('0' + (d.getMonth() + 1)).slice(-2) + '-' + ('0' + d.getDate()).slice(-2);
   }
 };
 
@@ -86,7 +82,7 @@ var wiki = {
             ended: date.ended,
             chapters: chapterText.match(/全(\d+)話/) ? RegExp.$1 : null,
             productions: productionsText.split(/、\s?/),
-            wikipediaUrl: that.baseURI + wikipediaUrl
+            wikipediaUrl: wikipediaUrl ? that.baseURI + wikipediaUrl : null
           };
 
         objList.push(obj);
