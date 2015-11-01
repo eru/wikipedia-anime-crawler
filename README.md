@@ -2,7 +2,7 @@
 
 ## 使い方
 
-```
+```shell
 git submodule init
 git submodule update
 # Macなら
@@ -14,7 +14,7 @@ index.htmlをGoogle Chromeなどのブラウザで開いて下さい。
 
 ## データ構造
 
-```
+```json
 [
   {
     "title": "アニメのタイトルが入っています。正規化されていないです。",
@@ -29,4 +29,11 @@ index.htmlをGoogle Chromeなどのブラウザで開いて下さい。
   },
   ...
 ]
+```
+
+## csvが欲しい場合
+
+```shell
+npm install -g json2csv
+json2csv -i animelist.json -o animelist.csv
 ```
